@@ -1,7 +1,9 @@
-FROM nginx:1.19
+FROM nginxinc/nginx-unprivileged:stable-alpine 
 
 COPY html /usr/share/nginx/html
 
-EXPOSE 80
+EXPOSE 8080
+
+USER 101
 
 CMD nginx -g 'daemon off;'
