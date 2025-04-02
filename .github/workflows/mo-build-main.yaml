@@ -49,3 +49,15 @@ jobs:
         run: |
           docker push ${{ vars.MO_IMAGE_NAME__MAIN }}:${{ env.VERSION }}
           docker push ${{ vars.MO_IMAGE_NAME__MAIN }}:latest
+      - id: releaseWithMogenius
+        name: Release with mogenius
+        uses: mogenius/mogenius-release-action@v1
+        with:
+          dev: false
+          image: ${{ vars.MO_IMAGE_NAME__MAIN }}:${{ env.VERSION }}
+          kind: ${{ vars.MO_KIND__MAIN }}
+          namespace: ${{ vars.MO_NAMESPACE_NAME__MAIN }}
+          resourceName: ${{ vars.MO_RESOURCE_NAME__MAIN }}
+          containerName: ${{ vars.MO_CONTAINER_NAME__MAIN }}
+          keyKind: ${{ vars.MO_API_KIND__MAIN }}
+          token: ${{ secrets.MO_API_TOKEN__MAIN }}
