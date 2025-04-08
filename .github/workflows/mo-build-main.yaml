@@ -42,22 +42,29 @@ jobs:
           registry: ${{ vars.MO_REGISTRY_AUTH_URL__MAIN }}
           username: ${{ vars.MO_REGISTRY_USER__MAIN }}
           password: ${{ secrets.MO_REGISTRY_PAT__MAIN }}
-      - name: Build image
-        run: |
-          docker build -f ${{ vars.MO_DOCKERFILE__MAIN }} ${{vars.MO_DOCKER_ARGS__MAIN}} -t ${{ vars.MO_IMAGE_NAME__MAIN }}:${{ env.VERSION }} -t ${{ vars.MO_IMAGE_NAME__MAIN }}:latest ${{vars.MO_DOCKERCONTEXT__MAIN}}
-      - name: Push image
-        run: |
-          docker push ${{ vars.MO_IMAGE_NAME__MAIN }}:${{ env.VERSION }}
-          docker push ${{ vars.MO_IMAGE_NAME__MAIN }}:latest
-      - id: releaseWithMogenius
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Build and push multi-arch image
+        uses: docker/build-push-action@v5
+        with:
+          context: ${{ vars.MO_DOCKERCONTEXT__MAIN }}
+          file: ${{ vars.MO_DOCKERFILE__MAIN }}
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: |
+            ${{ vars.MO_IMAGE_NAME__MAIN }}:${{ env.VERSION }}
+            ${{ vars.MO_IMAGE_NAME__MAIN }}:latest    
+      - id: releaseWithMogenius-731c22394b6b42036c36
         name: Release with mogenius
         uses: mogenius/mogenius-release-action@v1
         with:
-          dev: false
+          dev: true
           image: ${{ vars.MO_IMAGE_NAME__MAIN }}:${{ env.VERSION }}
-          kind: ${{ vars.MO_KIND__MAIN }}
-          namespace: ${{ vars.MO_NAMESPACE_NAME__MAIN }}
-          resourceName: ${{ vars.MO_RESOURCE_NAME__MAIN }}
-          containerName: ${{ vars.MO_CONTAINER_NAME__MAIN }}
+          kind: Deployment
+          namespace: opensearch
+          resourceName: webappp
+          containerName: webappp
           keyKind: ${{ vars.MO_API_KIND__MAIN }}
-          token: ${{ secrets.MO_API_TOKEN__MAIN }}
+          token: ${{ secrets.MO_API_TOKEN__731c22394b6b42036c36__MAIN }}
