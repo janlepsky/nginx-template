@@ -68,3 +68,15 @@ jobs:
           containerName: webappp
           keyKind: ${{ vars.MO_API_KIND__MAIN }}
           token: ${{ secrets.MO_API_TOKEN__731c22394b6b42036c36__MAIN }}
+      - id: releaseWithMogenius-7b4e103b6dba9f73e594
+        name: Release with mogenius
+        uses: mogenius/mogenius-release-action@v1
+        with:
+          dev: true
+          image: ${{ vars.MO_IMAGE_NAME__MAIN }}:${{ env.VERSION }}
+          kind: Deployment
+          namespace: discourse
+          resourceName: exampleapp
+          containerName: exampleapp
+          keyKind: ${{ vars.MO_API_KIND__MAIN }}
+          token: ${{ secrets.MO_API_TOKEN__7b4e103b6dba9f73e594__MAIN }}
