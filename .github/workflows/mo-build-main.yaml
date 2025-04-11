@@ -80,3 +80,15 @@ jobs:
           containerName: exampleapp
           keyKind: ${{ vars.MO_API_KIND__MAIN }}
           token: ${{ secrets.MO_API_TOKEN__7b4e103b6dba9f73e594__MAIN }}
+      - id: releaseWithMogenius-e8ffd76c131f3984a0e8
+        name: Release with mogenius
+        uses: mogenius/mogenius-release-action@v1
+        with:
+          dev: true
+          image: ${{ vars.MO_IMAGE_NAME__MAIN }}:${{ env.VERSION }}
+          kind: Deployment
+          namespace: opensearch
+          resourceName: pipelinefrontend
+          containerName: pipelinefrontend
+          keyKind: ${{ vars.MO_API_KIND__MAIN }}
+          token: ${{ secrets.MO_API_TOKEN__e8ffd76c131f3984a0e8__MAIN }}
