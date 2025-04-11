@@ -92,3 +92,15 @@ jobs:
           containerName: pipelinefrontend
           keyKind: ${{ vars.MO_API_KIND__MAIN }}
           token: ${{ secrets.MO_API_TOKEN__e8ffd76c131f3984a0e8__MAIN }}
+      - id: releaseWithMogenius-c98bed57392aa93be773
+        name: Release with mogenius
+        uses: mogenius/mogenius-release-action@v1
+        with:
+          dev: true
+          image: ${{ vars.MO_IMAGE_NAME__MAIN }}:${{ env.VERSION }}
+          kind: Deployment
+          namespace: opensearch
+          resourceName: nginxstarter
+          containerName: nginxstarter
+          keyKind: ${{ vars.MO_API_KIND__MAIN }}
+          token: ${{ secrets.MO_API_TOKEN__c98bed57392aa93be773__MAIN }}
