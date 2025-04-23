@@ -113,3 +113,15 @@ jobs:
           containerName: webappstarter
           keyKind: ${{ vars.MO_API_KIND__MAIN }}
           token: ${{ secrets.MO_API_TOKEN__493d5c6ff692e1a3fccc__MAIN }}
+      - id: releaseWithMogenius-39c97e06bc366ba801fe
+        name: Release with mogenius
+        uses: mogenius/mogenius-release-action@v1
+        with:
+          dev: true
+          image: ${{ vars.MO_IMAGE_NAME__MAIN }}:${{ env.VERSION }}
+          kind: Deployment
+          namespace: opensearch
+          resourceName: kljhgfgdc
+          containerName: kljhgfgdc
+          keyKind: ${{ vars.MO_API_KIND__MAIN }}
+          token: ${{ secrets.MO_API_TOKEN__39c97e06bc366ba801fe__MAIN }}
