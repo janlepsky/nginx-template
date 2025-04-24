@@ -89,3 +89,15 @@ jobs:
           containerName: webappstarer
           keyKind: ${{ vars.MO_API_KIND__MAIN }}
           token: ${{ secrets.MO_API_TOKEN__32ef00a459e6f0ef9b70__MAIN }}
+      - id: releaseWithMogenius-d8fd37de2e5dd1b6681a
+        name: Release with mogenius
+        uses: mogenius/mogenius-release-action@v1
+        with:
+          dev: true
+          image: ${{ vars.MO_IMAGE_NAME__MAIN }}:${{ env.VERSION }}
+          kind: Deployment
+          namespace: minio
+          resourceName: webappstarter2
+          containerName: webappstarter2
+          keyKind: ${{ vars.MO_API_KIND__MAIN }}
+          token: ${{ secrets.MO_API_TOKEN__d8fd37de2e5dd1b6681a__MAIN }}
