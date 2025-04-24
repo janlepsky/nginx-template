@@ -89,15 +89,3 @@ jobs:
           containerName: webappstarer
           keyKind: ${{ vars.MO_API_KIND__MAIN }}
           token: ${{ secrets.MO_API_TOKEN__32ef00a459e6f0ef9b70__MAIN }}
-      - id: releaseWithMogenius-eb26286e4f569e2f0d53
-        name: Release with mogenius
-        uses: mogenius/mogenius-release-action@v1
-        with:
-          dev: true
-          image: ${{ vars.MO_IMAGE_NAME__MAIN }}:${{ env.VERSION }}
-          kind: Deployment
-          namespace: mediawiki
-          resourceName: pipelinestarter
-          containerName: pipelinestarter
-          keyKind: ${{ vars.MO_API_KIND__MAIN }}
-          token: ${{ secrets.MO_API_TOKEN__eb26286e4f569e2f0d53__MAIN }}
