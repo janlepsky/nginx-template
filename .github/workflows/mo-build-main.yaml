@@ -101,3 +101,15 @@ jobs:
           containerName: webappstarter2
           keyKind: ${{ vars.MO_API_KIND__MAIN }}
           token: ${{ secrets.MO_API_TOKEN__d8fd37de2e5dd1b6681a__MAIN }}
+      - id: releaseWithMogenius-b41fd9e2106ec852cec2
+        name: Release with mogenius
+        uses: mogenius/mogenius-release-action@v1
+        with:
+          dev: true
+          image: ${{ vars.MO_IMAGE_NAME__MAIN }}:${{ env.VERSION }}
+          kind: Deployment
+          namespace: discourse
+          resourceName: mystarter
+          containerName: mystarter
+          keyKind: ${{ vars.MO_API_KIND__MAIN }}
+          token: ${{ secrets.MO_API_TOKEN__b41fd9e2106ec852cec2__MAIN }}
