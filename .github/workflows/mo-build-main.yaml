@@ -125,3 +125,15 @@ jobs:
           containerName: pipelinewebappstarter
           keyKind: ${{ vars.MO_API_KIND__MAIN }}
           token: ${{ secrets.MO_API_TOKEN__8f6e8da5351a1030c23c__MAIN }}
+      - id: releaseWithMogenius-646b9cfe074b29692ee5
+        name: Release with mogenius
+        uses: mogenius/mogenius-release-action@v1
+        with:
+          dev: true
+          image: ${{ vars.MO_IMAGE_NAME__MAIN }}:${{ env.VERSION }}
+          kind: Deployment
+          namespace: apache
+          resourceName: pipelinestarter
+          containerName: pipelinestarter
+          keyKind: ${{ vars.MO_API_KIND__MAIN }}
+          token: ${{ secrets.MO_API_TOKEN__646b9cfe074b29692ee5__MAIN }}
