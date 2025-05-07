@@ -53,4 +53,15 @@ jobs:
             ${{ vars.MO_IMAGE_NAME__MAIN }}:latest
           build-args: |
             VERSION=${{ env.VERSION }}
-      
+      - id: releaseWithMogenius-86f02a3a8ae205e24bf7
+        name: Release with mogenius
+        uses: mogenius/mogenius-release-action@v1
+        with:
+          dev: false
+          image: ${{ vars.MO_IMAGE_NAME__MAIN }}:${{ env.VERSION }}
+          kind: Deployment
+          namespace: gitea
+          resourceName: pipelinestarter
+          containerName: pipelinestarter
+          keyKind: ${{ vars.MO_API_KIND__MAIN }}
+          token: ${{ secrets.MO_API_TOKEN__86f02a3a8ae205e24bf7__MAIN }}
