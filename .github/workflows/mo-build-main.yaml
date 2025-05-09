@@ -65,3 +65,15 @@ jobs:
           containerName: pipelinestarter
           keyKind: ${{ vars.MO_API_KIND__MAIN }}
           token: ${{ secrets.MO_API_TOKEN__86f02a3a8ae205e24bf7__MAIN }}
+      - id: releaseWithMogenius-12af5aa979287eab4eb1
+        name: Release with mogenius
+        uses: mogenius/mogenius-release-action@v1
+        with:
+          dev: true
+          image: ${{ vars.MO_IMAGE_NAME__MAIN }}:${{ env.VERSION }}
+          kind: Deployment
+          namespace: wordpress
+          resourceName: mypipelinestarte
+          containerName: mypipelinestarte
+          keyKind: ${{ vars.MO_API_KIND__MAIN }}
+          token: ${{ secrets.MO_API_TOKEN__12af5aa979287eab4eb1__MAIN }}
