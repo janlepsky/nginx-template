@@ -65,15 +65,3 @@ jobs:
           containerName: webapp
           keyKind: ${{ vars.MO_API_KIND__MAIN }}
           token: ${{ secrets.MO_API_TOKEN__46ef3b6442190dd77985__MAIN }}
-      - id: releaseWithMogenius-68e73e1f9429b1b06d6b
-        name: Release with mogenius
-        uses: mogenius/mogenius-release-action@v1
-        with:
-          dev: true
-          image: ${{ vars.MO_IMAGE_NAME__MAIN }}:${{ env.VERSION }}
-          kind: Deployment
-          namespace: gitea
-          resourceName: testbehr
-          containerName: testbehr
-          keyKind: ${{ vars.MO_API_KIND__MAIN }}
-          token: ${{ secrets.MO_API_TOKEN__68e73e1f9429b1b06d6b__MAIN }}
