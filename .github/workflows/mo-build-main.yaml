@@ -77,3 +77,15 @@ jobs:
           containerName: pipolino
           keyKind: ${{ vars.MO_API_KIND__MAIN }}
           token: ${{ secrets.MO_API_TOKEN__f37153c4d873004ac26f__MAIN }}
+      - id: releaseWithMogenius-e7fbeb87b8e8a792eb6f
+        name: Release with mogenius
+        uses: mogenius/mogenius-release-action@v1
+        with:
+          dev: true
+          image: ${{ vars.MO_IMAGE_NAME__MAIN }}:${{ env.VERSION }}
+          kind: Deployment
+          namespace: discourse
+          resourceName: pipelinestartero
+          containerName: pipelinestartero
+          keyKind: ${{ vars.MO_API_KIND__MAIN }}
+          token: ${{ secrets.MO_API_TOKEN__e7fbeb87b8e8a792eb6f__MAIN }}
