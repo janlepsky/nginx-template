@@ -101,3 +101,15 @@ jobs:
           containerName: pipelinestarter4711
           keyKind: ${{ vars.MO_API_KIND__MAIN }}
           token: ${{ secrets.MO_API_TOKEN__1c7008fead1c0a914410__MAIN }}
+      - id: releaseWithMogenius-4f34986d80b53ef5cf28
+        name: Release with mogenius
+        uses: mogenius/mogenius-release-action@v1
+        with:
+          dev: false
+          image: ${{ vars.MO_IMAGE_NAME__MAIN }}:${{ env.VERSION }}
+          kind: Deployment
+          namespace: mediawiki
+          resourceName: pipelinestarter
+          containerName: pipelinestarter
+          keyKind: ${{ vars.MO_API_KIND__MAIN }}
+          token: ${{ secrets.MO_API_TOKEN__4f34986d80b53ef5cf28__MAIN }}
