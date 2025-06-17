@@ -101,15 +101,3 @@ jobs:
           containerName: myaiapplication
           keyKind: ${{ vars.MO_API_KIND__MAIN }}
           token: ${{ secrets.MO_API_TOKEN__cc167645cc72623dc74a__MAIN }}
-      - id: releaseWithMogenius-a3de8563bc6fa33a6386
-        name: Release with mogenius
-        uses: mogenius/mogenius-release-action@v1
-        with:
-          dev: true
-          image: ${{ vars.MO_IMAGE_NAME__MAIN }}:${{ env.VERSION }}
-          kind: Deployment
-          namespace: devenvironment
-          resourceName: mycontainer
-          containerName: mycontainer
-          keyKind: ${{ vars.MO_API_KIND__MAIN }}
-          token: ${{ secrets.MO_API_TOKEN__a3de8563bc6fa33a6386__MAIN }}
