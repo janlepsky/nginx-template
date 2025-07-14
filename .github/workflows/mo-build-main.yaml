@@ -30,6 +30,11 @@ jobs:
         run: |
           VERSION=$(git describe --tags $(git rev-list --tags --max-count=1))
           echo "VERSION=$VERSION" >> $GITHUB_ENV
+      - name: Get last commit hash
+        id: lasthash
+        run: |
+          LAST_HASH=$(git rev-parse --short HEAD)
+          echo "LAST_HASH=$LAST_HASH" >> $GITHUB_ENV
       - id: containerRegistryLogin
         name: Login to Container Registry
         uses: docker/login-action@v3
@@ -51,55 +56,8 @@ jobs:
           tags: |
             ${{ vars.MO_IMAGE_NAME__MAIN }}:${{ env.VERSION }}
             ${{ vars.MO_IMAGE_NAME__MAIN }}:latest
+            ${{ vars.MO_IMAGE_NAME__MAIN }}:${{ env.LAST_HASH }}
           build-args: VERSION=${{ env.VERSION }}
-      - id: releaseWithMogenius-46ef3b6442190dd77985
-        name: Release with mogenius
-        uses: mogenius/mogenius-release-action@v1
-        with:
-          dev: true
-          image: ${{ vars.MO_IMAGE_NAME__MAIN }}:${{ env.VERSION }}
-          kind: Deployment
-          namespace: gitea
-          resourceName: webapp
-          containerName: webapp
-          keyKind: ${{ vars.MO_API_KIND__MAIN }}
-          token: ${{ secrets.MO_API_TOKEN__46ef3b6442190dd77985__MAIN }}
-      - id: releaseWithMogenius-1c7008fead1c0a914410
-        name: Release with mogenius
-        uses: mogenius/mogenius-release-action@v1
-        with:
-          dev: false
-          image: ${{ vars.MO_IMAGE_NAME__MAIN }}:${{ env.VERSION }}
-          kind: Deployment
-          namespace: ghost
-          resourceName: pipelinestarter4711
-          containerName: pipelinestarter4711
-          keyKind: ${{ vars.MO_API_KIND__MAIN }}
-          token: ${{ secrets.MO_API_TOKEN__1c7008fead1c0a914410__MAIN }}
-      - id: releaseWithMogenius-4f34986d80b53ef5cf28
-        name: Release with mogenius
-        uses: mogenius/mogenius-release-action@v1
-        with:
-          dev: false
-          image: ${{ vars.MO_IMAGE_NAME__MAIN }}:${{ env.VERSION }}
-          kind: Deployment
-          namespace: mediawiki
-          resourceName: pipelinestarter
-          containerName: pipelinestarter
-          keyKind: ${{ vars.MO_API_KIND__MAIN }}
-          token: ${{ secrets.MO_API_TOKEN__4f34986d80b53ef5cf28__MAIN }}
-      - id: releaseWithMogenius-cc167645cc72623dc74a
-        name: Release with mogenius
-        uses: mogenius/mogenius-release-action@v1
-        with:
-          dev: false
-          image: ${{ vars.MO_IMAGE_NAME__MAIN }}:${{ env.VERSION }}
-          kind: Deployment
-          namespace: mediawiki
-          resourceName: myaiapplication
-          containerName: myaiapplication
-          keyKind: ${{ vars.MO_API_KIND__MAIN }}
-          token: ${{ secrets.MO_API_TOKEN__cc167645cc72623dc74a__MAIN }}
       - id: releaseWithMogenius-7f795d3aa2e2fb4b2a9e
         name: Release with mogenius
         uses: mogenius/mogenius-release-action@v1
