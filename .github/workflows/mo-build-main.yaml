@@ -51,8 +51,7 @@ jobs:
           tags: |
             ${{ vars.MO_IMAGE_NAME__MAIN }}:${{ env.VERSION }}
             ${{ vars.MO_IMAGE_NAME__MAIN }}:latest
-          build-args: |
-            VERSION=${{ env.VERSION }}
+          build-args: VERSION=${{ env.VERSION }}
       - id: releaseWithMogenius-46ef3b6442190dd77985
         name: Release with mogenius
         uses: mogenius/mogenius-release-action@v1
@@ -101,3 +100,15 @@ jobs:
           containerName: myaiapplication
           keyKind: ${{ vars.MO_API_KIND__MAIN }}
           token: ${{ secrets.MO_API_TOKEN__cc167645cc72623dc74a__MAIN }}
+      - id: releaseWithMogenius-7f795d3aa2e2fb4b2a9e
+        name: Release with mogenius
+        uses: mogenius/mogenius-release-action@v1
+        with:
+          dev: true
+          image: ${{ vars.MO_IMAGE_NAME__MAIN }}:${{ env.VERSION }}
+          kind: Deployment
+          namespace: keycloak
+          resourceName: my-container-image-8u34tp
+          containerName: nginx
+          keyKind: ${{ vars.MO_API_KIND__MAIN }}
+          token: ${{ secrets.MO_API_TOKEN__7f795d3aa2e2fb4b2a9e__MAIN }}
