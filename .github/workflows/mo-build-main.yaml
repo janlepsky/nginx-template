@@ -57,7 +57,9 @@ jobs:
             ${{ vars.MO_IMAGE_NAME__MAIN }}:${{ env.VERSION }}
             ${{ vars.MO_IMAGE_NAME__MAIN }}:latest
             ${{ vars.MO_IMAGE_NAME__MAIN }}:${{ env.LAST_HASH }}
-          build-args: VERSION=${{ env.VERSION }}
+          build-args: |-
+            VERSION=${{ env.VERSION }}
+            TEST=STUFF
       - id: releaseWithMogenius-7f795d3aa2e2fb4b2a9e
         name: Release with mogenius
         uses: mogenius/mogenius-release-action@v1
