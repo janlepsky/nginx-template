@@ -30,11 +30,6 @@ jobs:
         run: |
           VERSION=$(git describe --tags $(git rev-list --tags --max-count=1))
           echo "VERSION=$VERSION" >> $GITHUB_ENV
-      - name: Get last commit hash
-        id: lasthash
-        run: |
-          LAST_HASH=$(git rev-parse --short HEAD)
-          echo "LAST_HASH=$LAST_HASH" >> $GITHUB_ENV
       - id: containerRegistryLogin
         name: Login to Container Registry
         uses: docker/login-action@v3
@@ -56,10 +51,8 @@ jobs:
           tags: |
             ${{ vars.MO_IMAGE_NAME__MAIN }}:${{ env.VERSION }}
             ${{ vars.MO_IMAGE_NAME__MAIN }}:latest
-            ${{ vars.MO_IMAGE_NAME__MAIN }}:${{ env.LAST_HASH }}
-          build-args: |-
+          build-args: |
             VERSION=${{ env.VERSION }}
-            TEST=STUFF
       - id: releaseWithMogenius-7f795d3aa2e2fb4b2a9e
         name: Release with mogenius
         uses: mogenius/mogenius-release-action@v1
@@ -72,3 +65,15 @@ jobs:
           containerName: nginx
           keyKind: ${{ vars.MO_API_KIND__MAIN }}
           token: ${{ secrets.MO_API_TOKEN__7f795d3aa2e2fb4b2a9e__MAIN }}
+      - id: releaseWithMogenius-dc12f3dc4c6a8b251e65
+        name: Release with mogenius
+        uses: mogenius/mogenius-release-action@v1
+        with:
+          dev: false
+          image: ${{ vars.MO_IMAGE_NAME__MAIN }}:${{ env.VERSION }}
+          kind: Deployment
+          namespace: gitea
+          resourceName: myworkflow
+          containerName: myworkflow
+          keyKind: ${{ vars.MO_API_KIND__MAIN }}
+          token: ${{ secrets.MO_API_TOKEN__dc12f3dc4c6a8b251e65__MAIN }}
