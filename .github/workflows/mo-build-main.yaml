@@ -51,9 +51,8 @@ jobs:
           tags: |
             ${{ vars.MO_IMAGE_NAME__MAIN }}:${{ env.VERSION }}
             ${{ vars.MO_IMAGE_NAME__MAIN }}:latest
-          build-args: |
-            VERSION=${{ env.VERSION }}
-      - id: releaseWithMogenius-7f795d3aa2e2fb4b2a9e
+          build-args: VERSION=${{ env.VERSION }}
+      - id: releaseWithMogenius-7F795D3AA2E2FB4B2A9E
         name: Release with mogenius
         uses: mogenius/mogenius-release-action@v1
         with:
@@ -64,7 +63,7 @@ jobs:
           resourceName: my-container-image-8u34tp
           containerName: nginx
           keyKind: ${{ vars.MO_API_KIND__MAIN }}
-          token: ${{ secrets.MO_API_TOKEN__7f795d3aa2e2fb4b2a9e__MAIN }}
+          token: ${{ secrets.MO_API_TOKEN__7F795D3AA2E2FB4B2A9E__MAIN }}
       - id: releaseWithMogenius-dc12f3dc4c6a8b251e65
         name: Release with mogenius
         uses: mogenius/mogenius-release-action@v1
